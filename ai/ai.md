@@ -49,3 +49,5 @@ This keeps validation logic organized, reusable, and follows Laravel best practi
 - Services, composables, and configuration imports (e.g., `PrimeVue`, `ConfirmationService`, `Tooltip`, `useConfirm`) may still use individual imports as they are not components.
 
 This ensures consistency and cleaner imports across the codebase.
+
+All buttons to create records should have a severity of "primary" and all buttons to delete records should have a severity of "danger. Any other buttons should have a severity of "secondary".
