@@ -1,12 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
-import Password from 'primevue/password';
-import Select from 'primevue/select';
-import Message from 'primevue/message';
+import { Button, InputText, Password, Select, Message } from 'primevue';
 
 const props = defineProps({
   user: {

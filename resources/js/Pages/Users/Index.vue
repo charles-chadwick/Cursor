@@ -2,11 +2,9 @@
 <script setup>
 import { router, usePage } from '@inertiajs/vue3';
 import { useConfirm } from 'primevue/useconfirm';
+import { Button, DataTable, Column, ConfirmDialog } from 'primevue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Button from 'primevue/button';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import ConfirmDialog from 'primevue/confirmdialog';
+
 
 const props = defineProps ( {
   users: Array,
