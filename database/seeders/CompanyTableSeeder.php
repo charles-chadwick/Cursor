@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CompanyType;
 use App\Models\Company;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -12,7 +13,7 @@ use Spatie\Activitylog\Facades\CauserResolver;
 
 use function fake;
 
-class CompanySeeder extends Seeder
+class CompanyTableSeeder extends Seeder
 {
     /**
      * Populates the `companies` table with data fetched from the Rick and Morty API.
@@ -23,10 +24,10 @@ class CompanySeeder extends Seeder
      *
      * @throws GuzzleException
      */
-    public function run(): void
+    public function run() : void
     {
         $users = User::all();
-        
+
         if ($users->isEmpty()) {
             $this->command->error('No users found. Please seed users first.');
             return;
@@ -52,22 +53,24 @@ class CompanySeeder extends Seeder
             // Calculate random created_at date between user creation and 1 month ago
             $user_created_at = $random_user->created_at->copy();
             $one_month_ago = now()->subMonth();
-            
+
             // Start date should be when user was created
             // End date should be 1 month ago (or user creation if user is newer than 1 month)
             $start_date = $user_created_at;
             $end_date = $user_created_at->lt($one_month_ago) ? $one_month_ago : $user_created_at->copy();
-            
+
             $created_at = fake()->dateTimeBetween($start_date, $end_date);
 
             Company::create([
-                'type' => fake()->randomElement(['Customer', 'Vendor', 'Partner', 'Prospect']),
-                'name' => $episode['name'],
-                'notes' => fake()->optional(0.3)->sentence(),
+                'type'          => fake()->randomElement(CompanyType::cases()),
+                'name'          => FilterData::censor($episode['name']),
+                'notes'         => fake()
+                    ->optional(0.3)
+                    ->sentence(),
                 'created_by_id' => $random_user->id,
                 'updated_by_id' => $random_user->id,
-                'created_at' => $created_at,
-                'updated_at' => $created_at,
+                'created_at'    => $created_at,
+                'updated_at'    => $created_at,
             ]);
 
             echo '.';
@@ -82,7 +85,7 @@ class CompanySeeder extends Seeder
      * @return Collection
      * @throws GuzzleException
      */
-    private function getEpisodes(): Collection
+    private function getEpisodes() : Collection
     {
         $client = new Client();
         $episodes = collect();
@@ -105,7 +108,7 @@ class CompanySeeder extends Seeder
                     $has_more = false;
                 }
             } catch (GuzzleException $e) {
-                $this->command->error("Error fetching episodes: " . $e->getMessage());
+                $this->command->error("Error fetching episodes: ".$e->getMessage());
                 $has_more = false;
             }
         }

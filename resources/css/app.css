@@ -49,5 +49,14 @@
     --color-darker-950: #0c0a09;
 }
 
+.table-header > th {
+    @apply text-sm font-semibold bg-darker-200 px-4 py-2 text-left;
+}
 
+.table-row {
+    @apply border-b border-darker-200 odd:bg-darker-100;
+}
 
+.table-cell {
+    @apply text-sm px-4 py-2;
+}

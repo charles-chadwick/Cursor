@@ -19,9 +19,9 @@ const props = defineProps({
 const is_edit = computed(() => !!props.company);
 
 const form = useForm({
-  type: props.company?.type || '',
-  name: props.company?.name || '',
-  notes: props.company?.notes || '',
+  type: props.company.data.attributes?.type || '',
+  name: props.company.data.attributes?.name || '',
+  notes: props.company.data.attributes?.notes || '',
 });
 
 const submit = () => {
@@ -51,7 +51,7 @@ const cancel = () => {
       </div>
 
       <div class="bg-white rounded-lg shadow p-6">
-        <form @submit.prevent="submit" class="space-y-6 max-w-xl">
+        <form @submit.prevent="submit" class="space-y-3 max-w-2xl">
           <!-- Type and Name -->
           <div class="grid grid-cols-2 gap-4">
             <div class="flex flex-col gap-2">
@@ -62,6 +62,8 @@ const cancel = () => {
               <Select
                   id="type"
                   v-model="form.type"
+                  optionLabel="label"
+                  optionValue="value"
                   :options="props.company_types"
                   :invalid="!!form.errors.type"
                   placeholder="Select company type"
@@ -108,7 +110,7 @@ const cancel = () => {
                 v-model="form.notes"
                 :invalid="!!form.errors.notes"
                 placeholder="Enter notes (optional)"
-                rows="5"
+                editorStyle="height: 200px"
                 class="w-full"
             />
             <Message

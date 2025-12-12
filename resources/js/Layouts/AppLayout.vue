@@ -6,7 +6,7 @@ const page = usePage();
 
 // Layout component
 const main_nav = [
-  { name: 'Companies', href: '#', icon: 'pi pi-building' },
+  { name: 'Companies', href: route('companies.index'), icon: 'pi pi-building' },
   { name: 'Customers', href: '#', icon: 'pi pi-users' },
   { name: 'Contacts', href: '#', icon: 'pi pi-user' },
   { name: 'Discussions', href: '#', icon: 'pi pi-comments' }
@@ -26,7 +26,7 @@ const is_admin = computed(() => page.props.auth?.user?.role === 'Admin');
             v-for="nav_item in main_nav"
             :key="nav_item.name"
             :href="nav_item.href"
-            class="block px-4 py-2 text-white font-bold hover:bg-primary-500 hover:rounded-md flex items-center gap-2"
+            class="px-4 py-2 text-white font-bold hover:bg-primary-500 hover:rounded-md flex items-center gap-2"
         >
           <i :class="nav_item.icon"></i>
           {{ nav_item.name }}
@@ -34,7 +34,7 @@ const is_admin = computed(() => page.props.auth?.user?.role === 'Admin');
         <a
             v-if="is_admin"
             :href="route('users.index')"
-            class="block px-4 py-2 text-white font-bold hover:bg-primary-500 hover:rounded-md flex items-center gap-2"
+            class="px-4 py-2 text-white font-bold hover:bg-primary-500 hover:rounded-md flex items-center gap-2"
         >
           <i class="pi pi-user-edit"></i>
           Users

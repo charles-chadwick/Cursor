@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasUserRelations;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +14,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Customer extends Authenticatable implements HasMedia
 {
-    use Notifiable, InteractsWithMedia, LogsActivity;
+    use Notifiable, InteractsWithMedia, LogsActivity, HasUserRelations;
 
     /**
      * The attributes that are mass assignable.
@@ -54,6 +55,11 @@ class Customer extends Authenticatable implements HasMedia
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->loadRelations();
     }
 
     /**

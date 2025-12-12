@@ -15,15 +15,15 @@ class Base extends Model
     /**
      * Get the user that created this record.
      */
-    public function createcdBy(): BelongsTo
+    public function created_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by_id');
     }
 
     /**
-     * Get the user that last updated this record.
+     * Get the user that updated this record.
      */
-    public function updatedBy(): BelongsTo
+    public function updated_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by_id');
     }
@@ -31,7 +31,7 @@ class Base extends Model
     /**
      * Get the user that deleted this record.
      */
-    public function deletedBy(): BelongsTo
+    public function deleted_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by_id');
     }

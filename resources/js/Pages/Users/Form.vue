@@ -4,7 +4,7 @@ import { router, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Button, InputText, Password, Select, Message } from 'primevue';
 
-const props = defineProps({
+const props = defineProps ( {
   user: {
     type: Object,
     default: null,
@@ -13,33 +13,33 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-});
+} );
 
-const is_edit = computed(() => !!props.user);
+const is_edit = computed ( () => !! props.user );
 
-const form = useForm({
+const form = useForm ( {
   first_name: props.user?.first_name || '',
   last_name: props.user?.last_name || '',
   email: props.user?.email || '',
   role: props.user?.role || '',
   password: '',
   password_confirmation: '',
-});
+} );
 
 const submit = () => {
-  if (is_edit.value) {
-    form.put(route('users.update', props.user.id), {
+  if ( is_edit.value ) {
+    form.put ( route ( 'users.update', props.user.id ), {
       preserveScroll: true,
-    });
+    } );
   } else {
-    form.post(route('users.store'), {
+    form.post ( route ( 'users.store' ), {
       preserveScroll: true,
-    });
+    } );
   }
 };
 
 const cancel = () => {
-  router.visit(route('users.index'));
+  router.visit ( route ( 'users.index' ) );
 };
 </script>
 
@@ -53,7 +53,10 @@ const cancel = () => {
       </div>
 
       <div class="bg-white rounded-lg shadow p-6">
-        <form @submit.prevent="submit" class="space-y-6  max-w-xl">
+        <form
+            @submit.prevent="submit"
+            class="space-y-6  max-w-xl"
+        >
           <!-- First Name and Last Name -->
           <div class="grid grid-cols-2 gap-4">
             <div class="flex flex-col gap-2">
@@ -198,21 +201,21 @@ const cancel = () => {
 
           <!-- Form Actions -->
           <div class="flex gap-4 pt-4">
-            <Button 
-              type="submit" 
-              :label="is_edit ? 'Update User' : 'Create User'"
-              :loading="form.processing"
-              icon="pi pi-check"
-              severity="primary"
+            <Button
+                type="submit"
+                :label="is_edit ? 'Update User' : 'Create User'"
+                :loading="form.processing"
+                icon="pi pi-check"
+                severity="primary"
             />
-            <Button 
-              type="button"
-              label="Cancel"
-              severity="secondary"
-              outlined
-              icon="pi pi-times"
-              @click="cancel"
-              :disabled="form.processing"
+            <Button
+                type="button"
+                label="Cancel"
+                severity="secondary"
+                outlined
+                icon="pi pi-times"
+                @click="cancel"
+                :disabled="form.processing"
             />
           </div>
         </form>

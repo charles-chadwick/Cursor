@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\HasUserRelations;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Company extends Base implements HasMedia
 {
-    use InteractsWithMedia, LogsActivity;
+    use InteractsWithMedia, LogsActivity, HasUserRelations;
 
     /**
      * The attributes that are mass assignable.
@@ -24,10 +24,16 @@ class Company extends Base implements HasMedia
         'notes'
     ];
 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->loadRelations();
+    }
+
+
     /**
      * Get the customers for this company.
      */
-    public function customers(): HasMany
+    public function customers() : HasMany
     {
         return $this->hasMany(Customer::class);
     }
@@ -35,7 +41,7 @@ class Company extends Base implements HasMedia
     /**
      * Get all contacts for this company.
      */
-    public function contacts(): MorphMany
+    public function contacts() : MorphMany
     {
         return $this->morphMany(Contact::class, 'on');
     }
@@ -43,7 +49,7 @@ class Company extends Base implements HasMedia
     /**
      * Get all discussions for this company.
      */
-    public function discussions(): MorphMany
+    public function discussions() : MorphMany
     {
         return $this->morphMany(Discussion::class, 'on');
     }

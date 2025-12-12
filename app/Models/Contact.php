@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasUserRelations;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class Contact extends Base
 {
+
+    use HasUserRelations;
 
     /**
      * The attributes that are mass assignable.
@@ -36,6 +40,12 @@ class Contact extends Base
         return [
             'is_primary' => 'boolean',
         ];
+    }
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->loadRelations();
+
     }
 
     /**

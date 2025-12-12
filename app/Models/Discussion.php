@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasUserRelations;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -9,7 +10,7 @@ use Spatie\Activitylog\LogOptions;
 
 class Discussion extends Base
 {
-    use LogsActivity;
+    use HasUserRelations;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,12 @@ class Discussion extends Base
         'status',
         'notes'
     ];
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->loadRelations();
+
+    }
 
     /**
      * Get the parent-discussable model (User, Company, or Customer).

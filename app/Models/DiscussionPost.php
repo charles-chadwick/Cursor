@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasUserRelations;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
 class DiscussionPost extends Base
 {
-    use LogsActivity;
+    use HasUserRelations;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +21,11 @@ class DiscussionPost extends Base
         'status',
         'content',
     ];
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->loadRelations();
+    }
 
     /**
      * Get the discussion that owns this post.

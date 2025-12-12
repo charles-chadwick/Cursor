@@ -1,26 +1,16 @@
-<!--suppress NpmUsedModulesInstalled -->
+<!--suppress NpmUsedModulesInstalled, JSValidateTypes, JSUnresolvedReference -->
 <script setup>
 import { router, usePage } from '@inertiajs/vue3';
 import { useConfirm } from 'primevue/useconfirm';
-import { Button, DataTable, Column, ConfirmDialog } from 'primevue';
+import { Button, ConfirmDialog } from 'primevue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 
-
 const props = defineProps ( {
-  companies: Array,
+  companies: Object,
 } );
-
-const page = usePage ();
+const companies = props.companies;
 const confirm = useConfirm ();
-
-const format_date = ( date ) => {
-  return new Date ( date ).toLocaleDateString ( 'en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  } );
-};
-
+console.log(companies);
 const create_company = () => {
   router.visit ( route ( 'companies.create' ) );
 };
@@ -61,62 +51,47 @@ const delete_company = ( company ) => {
         />
       </div>
 
-      <DataTable
-          :value="props.companies"
-          stripedRows
-          :paginator="true"
-          :rows="10"
-          :rowsPerPageOptions="[5, 10, 20, 50]"
-          tableStyle="min-width: 50rem"
-      >
-        <Column
-            field="type"
-            header="Type"
-            sortable
-        ></Column>
-        <Column
-            field="name"
-            header="Name"
-            sortable
-        ></Column>
-        <Column
-            field="notes"
-            header="Notes"
+      <table class="min-w-full border-collapse">
+        <thead>
+        <tr class="table-header">
+          <th>Type</th>
+          <th>Name</th>
+          <th>Created At</th>
+          <th>Created By</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+            v-for="company in companies.data"
+            :key="company.id"
+            class="table-row"
         >
-          <template #body="slot_props">
-            <span class="truncate max-w-md">{{ slot_props.data.notes || '-' }}</span>
-          </template>
-        </Column>
-        <Column
-            field="created_at"
-            header="Created"
-            sortable
-        >
-          <template #body="slot_props">
-            {{ format_date ( slot_props.data.created_at ) }}
-          </template>
-        </Column>
-        <Column header="Actions">
-          <template #body="slot_props">
-            <div class="flex gap-2">
+          <td class="table-cell">{{ company.attributes.type }}</td>
+          <td class="table-cell">{{ company.attributes.name }}</td>
+          <td class="table-cell">{{ company.attributes.created_at }}</td>
+          <td class="table-cell">{{ company.relationships.created_by.attributes.full_name }}</td>
+          <td class="table-cell">
+            <div class="flex gap-2 justify-center items-center">
               <Button
                   icon="pi pi-pencil"
                   severity="secondary"
                   size="small"
-                  @click="edit_company(slot_props.data.id)"
+                  @click="edit_company(company.id)"
                   v-tooltip.top="'Edit'"
               />
               <Button
                   icon="pi pi-trash"
                   severity="danger"
                   size="small"
-                  @click="delete_company(slot_props.data)"
+                  @click="delete_company(company)"
                   v-tooltip.top="'Delete'"
               />
             </div>
-          </template>
-        </Column>
-      </DataTable>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </AppLayout>
 </template>
