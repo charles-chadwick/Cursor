@@ -1,3 +1,7 @@
+---
+apply: always
+---
+
 # Overview
 
 This will be a basic Customer Relationship Management system. It will allow Users to manage Companies and Customers.
