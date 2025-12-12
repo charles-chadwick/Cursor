@@ -18,7 +18,7 @@ const flash = computed ( () => page.props.flash );
 </script>
 <template>
   <div class="flex h-screen bg-darker-50">
-  <!-- Sidebar -->
+    <!-- Sidebar -->
     <aside class="w-64 bg-primary-600 border-r border-b-primary-500 flex flex-col">
       <div class="p-6 border-b border-b-primary-500">
         <h1 class="text-xl font-semibold text-white">CRM</h1>

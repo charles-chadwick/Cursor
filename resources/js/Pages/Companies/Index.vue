@@ -21,7 +21,7 @@ const edit_company = ( company_id ) => {
 
 const delete_company = ( company ) => {
   confirm.require ( {
-    message: `Are you sure you want to delete ${ company.name }?`,
+    message: `Are you sure you want to delete ${ company.attributes.name }?`,
     header: 'Confirm Deletion',
     icon: 'pi pi-exclamation-triangle',
     rejectLabel: 'Cancel',

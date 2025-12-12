@@ -74,7 +74,7 @@ class CompanyController extends Controller
 
         return redirect()
             ->route('companies.index')
-            ->with('message', 'Company created successfully.')
+            ->with('message', 'Company updated successfully.')
             ->with('type', 'success');
     }
 
@@ -83,13 +83,13 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        $company->delete();
         $company->deleted_by_id = auth()->id();
         $company->save();
+        $company->delete();
 
-        return redirect()
-            ->route('companies.index')
-            ->with('success', 'Company deleted successfully.');
+        return to_route('companies.index')
+            ->with('success', 'Company deleted successfully.')
+            ->with('type', 'success');
     }
 }
 
