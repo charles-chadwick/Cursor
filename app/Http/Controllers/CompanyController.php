@@ -16,10 +16,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::orderBy('created_at', 'desc')
+        $companies = Company::ordered()
             ->paginate()
             ->withQueryString();
-
 
         return Inertia::render('Companies/Index', [
             'companies' => CompanyResource::collection($companies),

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasContactsRelations;
 use App\Traits\HasUserRelations;
+use App\Traits\Orderable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -26,6 +27,7 @@ class Customer extends Base implements
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
     use Notifiable, HasRoles, InteractsWithMedia, HasUserRelations, HasContactsRelations;
+    use Orderable;
 
     /**
      * The attributes that are mass assignable.

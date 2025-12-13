@@ -48,12 +48,14 @@ const flash = computed ( () => page.props.flash );
     <main class="flex-1 overflow-auto">
       <div
           v-if="flash?.message"
+
       >
         <Message
             :severity="flash.type === 'error' ? 'error' : 'success'"
             :closable="true"
             :life="5000"
-            class="mx-8"
+            class="mx-8 mt-4"
+
         >
           {{ flash.message }}
         </Message>

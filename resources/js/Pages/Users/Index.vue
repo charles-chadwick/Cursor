@@ -3,17 +3,19 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Button } from 'primevue';
 import DeleteButton from "../../Components/ActionButtons.vue";
-import EditButton from "../../Components/ActionButtons.vue";
-import { Link } from "@inertiajs/vue3";
+import Pagination from "../../Components/Pagination.vue";
+import { ConfirmDialog} from "primevue";
 
 const props = defineProps ( {
   users: Object,
 } );
+console.log(props.users);
 
 </script>
 
 <template>
   <AppLayout>
+    <ConfirmDialog />
 
     <div class="px-8 py-4">
       <div class="flex justify-between items-center mb-6">
@@ -62,7 +64,7 @@ const props = defineProps ( {
         </tr>
         </tbody>
       </table>
-
+      <Pagination :pagination="props.users.meta"/>
     </div>
   </AppLayout>
 </template>

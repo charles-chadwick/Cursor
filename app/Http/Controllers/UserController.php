@@ -19,7 +19,8 @@ class UserController extends Controller
     {
         $users = User::with('created_by')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate()
+            ->withQueryString();
 
         return Inertia::render('Users/Index', [
             'users' => UserResource::collection($users),

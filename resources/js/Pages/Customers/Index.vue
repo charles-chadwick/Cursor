@@ -1,23 +1,69 @@
 <!--suppress NpmUsedModulesInstalled, JSValidateTypes, JSUnresolvedReference -->
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { ConfirmDialog, Paginator } from 'primevue';
+import { Select, ConfirmDialog } from 'primevue';
+import { router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import { CreateButton, EditButton, DeleteButton} from "../../Components/ActionButtons.vue";
+import Pagination from "../../Components/Pagination.vue";
 
 const props = defineProps({ customers: Object });
 const customers = props.customers;
+
+const sortByOptions = [
+  { label: 'Name', value: 'first_name' },
+  { label: 'Company', value: 'company' },
+  { label: 'Created Date', value: 'created_at' }
+];
+
+const sortDirectionOptions = [
+  { label: 'Ascending', value: 'asc' },
+  { label: 'Descending', value: 'desc' }
+];
+
+const selected_sorted_by = ref ( null );
+const selected_sort_direction = ref ( null );
+
+const handleSortChange = () => {
+  if ( selected_sorted_by.value && selected_sort_direction.value ) {
+    router.get ( route ( 'customers.index' ), {
+      sort_by: selected_sorted_by.value,
+      sort_direction: selected_sort_direction.value
+    }, { preserveState: true } );
+  }
+};
 </script>
 
 <template>
   <AppLayout>
     <ConfirmDialog />
-
     <div class="px-8 py-4">
       <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-darker-900">Customers</h1>
         <CreateButton
             prefix="customers"
             message="Customer"
+        />
+      </div>
+
+      <div class="flex justify-start mb-4 gap-4">
+        <Select
+            v-model="selected_sorted_by"
+            :options="sortByOptions"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Sort by..."
+            @change="handleSortChange"
+            class="w-64"
+        />
+        <Select
+            v-model="selected_sort_direction"
+            :options="sortDirectionOptions"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Direction..."
+            @change="handleSortChange"
+            class="w-64"
         />
       </div>
 
@@ -61,10 +107,8 @@ const customers = props.customers;
         </tr>
         </tbody>
       </table>
-      <Paginator
-          v-if="customers.data.length > 15"
-          :totalRecords="customers.meta.total"
-          :rowsPerPageOptions="[10, 20, 30]"
+      <Pagination
+          :pagination="customers.meta"
       />
     </div>
   </AppLayout>

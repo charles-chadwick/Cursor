@@ -4,7 +4,6 @@ import '../css/app.css';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { createRecord, editRecord, deleteRecord } from './utils/crudHelpers';
 
 import { ZiggyVue } from 'ziggy-js';
 import PrimeVue from 'primevue/config';
@@ -88,9 +87,7 @@ createInertiaApp({
         app.directive('tooltip', Tooltip);
         
         // Register global CRUD helpers
-        app.config.globalProperties.$createRecord = createRecord;
-        app.config.globalProperties.$editRecord = editRecord;
-        app.config.globalProperties.$deleteRecord = deleteRecord;
+        app.config.globalProperties.$pagination_length = 10
 
         return app
             .use(plugin)

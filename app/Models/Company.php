@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasUserRelations;
+use App\Traits\Orderable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -12,6 +13,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Company extends Base implements HasMedia
 {
     use InteractsWithMedia, LogsActivity, HasUserRelations;
+    use Orderable;
 
     /**
      * The attributes that are mass-assignable.

@@ -1,8 +1,9 @@
 <!--suppress NpmUsedModulesInstalled, JSValidateTypes, JSUnresolvedReference -->
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { ConfirmDialog, Paginator } from 'primevue';
-import { CreateButton, EditButton, DeleteButton} from "../../Components/ActionButtons.vue";
+import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
+import Pagination from "../../Components/Pagination.vue";
+import { ConfirmDialog} from "primevue";
 
 const props = defineProps ( { companies: Object } );
 const companies = props.companies;
@@ -57,9 +58,8 @@ const companies = props.companies;
         </tr>
         </tbody>
       </table>
-      <Paginator
-          :totalRecords="companies.meta.total"
-          :rowsPerPageOptions="[10, 20, 30]"
+      <Pagination
+        :pagination="companies.meta"
       />
     </div>
   </AppLayout>
