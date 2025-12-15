@@ -5,6 +5,7 @@ import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionB
 import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog} from "primevue";
 import { Head } from "@inertiajs/vue3";
+import UserDetails from "../../Components/UserDetails.vue";
 
 const props = defineProps ( { companies: Object } );
 </script>
@@ -41,7 +42,9 @@ const props = defineProps ( { companies: Object } );
         >
           <td class="table-cell">{{ company.attributes.type }}</td>
           <td class="table-cell">{{ company.attributes.name }}</td>
-          <td class="table-cell">{{ company.relationships.created_by?.attributes?.full_name }}</td>
+          <td class="table-cell">
+            <UserDetails :user="company.relationships.created_by" />
+          </td>
           <td class="table-cell">{{ company.attributes.created_at }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">

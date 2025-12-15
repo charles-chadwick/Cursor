@@ -96,7 +96,7 @@ const handleCloseDialog = () => {
         {{ remove_label }}
       </Button>
     </div>
-    <div v-else>
+    <div v-else-if="!image">
       <FileUpload
           :maxFileSize="2000000"
           accept="image/*"

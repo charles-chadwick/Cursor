@@ -15,20 +15,23 @@ const props = defineProps ( {
     required: true,
   },
 } );
-const is_edit = computed ( () => !! props.user );
+
+const user = props.user.data;
+
+const is_edit = computed ( () => !! user );
 
 const form = useForm ( {
-  first_name: props.user?.first_name || '',
-  last_name: props.user?.last_name || '',
-  email: props.user?.email || '',
-  role: props.user?.role || '',
+  first_name: user?.attributes.first_name || '',
+  last_name: user?.attributes.last_name || '',
+  email: user?.attributes.email || '',
+  role: user?.attributes.role || '',
   password: '',
   password_confirmation: '',
 } );
 
 const submit = () => {
   if ( is_edit.value ) {
-    form.put ( route ( 'users.update', props.user.id ), {
+    form.put ( route ( 'users.update', user.id ), {
       preserveScroll: true,
     } );
   } else {
@@ -218,8 +221,8 @@ const cancel = () => {
                   image_type="avatars"
                   on_type="User"
                   size="lg"
-                  :on_id="props.user.data.id"
-                  :image="props.user.data.attributes.avatar"
+                  :on_id="user.id"
+                  :image="user.attributes.avatar"
               />
             </div>
 

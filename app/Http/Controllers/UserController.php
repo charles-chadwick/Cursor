@@ -65,6 +65,14 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for editing the specified user.
+     */
+    public function show(User $user)
+    {
+        return $this->edit($user);
+    }
+
+    /**
      * Update the specified user in storage.
      */
     public function update(UpdateUserRequest $request, User $user)

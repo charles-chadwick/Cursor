@@ -6,6 +6,7 @@ import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import { Head } from "@inertiajs/vue3";
+import UserDetails from "../../Components/UserDetails.vue";
 
 const props = defineProps ( {
   users: Object,
@@ -21,7 +22,10 @@ const props = defineProps ( {
     <div class="px-8 py-4">
       <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-darker-900">Users</h1>
-        <CreateButton prefix="users" message="User" />
+        <CreateButton
+            prefix="users"
+            message="User"
+        />
       </div>
 
       <table class="min-w-full border-collapse">
@@ -44,7 +48,9 @@ const props = defineProps ( {
           <td class="table-cell">{{ user.attributes.id }}</td>
           <td class="table-cell">{{ user.attributes.role }}</td>
           <td class="table-cell">{{ user.attributes.full_name }}</td>
-          <td class="table-cell">{{ user.relationships.created_by.attributes.full_name }}</td>
+          <td class="table-cell">
+            <UserDetails :user="user.relationships.created_by" />
+          </td>
           <td class="table-cell">{{ user.attributes.created_at }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">

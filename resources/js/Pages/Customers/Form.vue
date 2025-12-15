@@ -63,7 +63,7 @@ const cancel = () => {
       <div class="bg-white rounded-lg shadow p-6">
         <form
             @submit.prevent="submit"
-            class="space-y-3 max-w-2xl"
+            class="space-y-6"
         >
           <!-- Company -->
           <div class="flex flex-col gap-2">
