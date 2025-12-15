@@ -18,7 +18,7 @@ trait IsPerson
     {
         return $this->first_name[0].$this->last_name[0];
     }
-
+    /**
     public function registerMediaConversions(?Media $media = null) : void
     {
         $this->addMediaConversion('avatars')
@@ -46,5 +46,5 @@ trait IsPerson
                 return $image;
             }
         );
-    }
+    } **/
 }

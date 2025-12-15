@@ -28,7 +28,7 @@ class Customer extends Base implements
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
     use Notifiable, HasRoles, InteractsWithMedia, HasUserRelations, HasContactsRelations;
-    use Orderable;
+    use Orderable, IsPerson;
 
     /**
      * The attributes that are mass assignable.

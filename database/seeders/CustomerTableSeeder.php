@@ -74,7 +74,7 @@ class CustomerTableSeeder extends Seeder
 
                 // Set the causer resolver for activity logging
                 CauserResolver::setCauser($random_user);
-
+                $company = Company::inRandomOrder()->first();
                 // Calculate random created_at date between company creation and 1 month ago
                 $company_created_at = $company->created_at->copy();
                 $one_month_ago = now()->subMonth();

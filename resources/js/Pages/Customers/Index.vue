@@ -42,7 +42,7 @@ const props = defineProps ( { customers: Object } );
         >
           <td class="table-cell">{{ customer.attributes.full_name }}</td>
           <td class="table-cell">
-
+            {{ customer.relationships.company?.attributes?.name }}
           </td>
           <td class="table-cell">
             <UserDetails :user="customer.relationships.created_by" />
