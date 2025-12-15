@@ -38,7 +38,7 @@ const props = defineProps ( {
   }
 } )
 const size = props.size;
-let image = props.image;
+const image = ref ( props.image );
 
 const sizes = {
   sm: 'size-16',
@@ -54,12 +54,17 @@ const form = useForm ( {
 } )
 
 const uploadImage = () => {
-  form.post ( props.upload_endpoint )
+  form.post ( props.upload_endpoint, {
+    onSuccess: ( page ) => {
+      image.value = page.props.image || page.props.flash?.image;
+      form.reset ();
+    }
+  } )
 }
 
 const removeImage = () => {
   form.post ( props.remove_endpoint )
-  image = null;
+  image.value = null;
 }
 
 const showDialog = ref ( false )

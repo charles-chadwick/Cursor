@@ -22,7 +22,7 @@ class HandleInertiaRequests extends Middleware
      *
      * @see https://inertiajs.com/asset-versioning
      */
-    public function version(Request $request): ?string
+    public function version(Request $request) : ?string
     {
         return parent::version($request);
     }
@@ -34,20 +34,23 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array<string, mixed>
      */
-    public function share(Request $request): array
+    public function share(Request $request) : array
     {
         return [
             ...parent::share($request),
-            'auth' => [
-                'user' => $request->user() ? $request->user()->only('id', 'first_name', 'last_name', 'email', 'role') : null,
+            'auth'  => [
+                'user' => $request->user() ? $request->user()
+                    ->only('id', 'first_name', 'last_name', 'email', 'role') : null,
             ],
-            'flash'  => [
-                'message' =>  $request->session()
+            'flash' => [
+                'message' => $request->session()
                     ->get('message'),
-                'type'  => $request->session()
+                'type'    => $request->session()
                     ->get('type'),
+                'image'   => $request->session()
+                    ->get('image'),
             ],
-            'ziggy' => fn () => [
+            'ziggy' => fn() => [
                 ...(new Ziggy)->toArray(),
             ],
         ];

@@ -29,13 +29,16 @@ class ImageController extends Controller
             $model->clearMediaCollection($collection);
 
             // Add the new image
-            $model->addMediaFromRequest('image')
-                  ->toMediaCollection($collection);
+            $media = $model->addMediaFromRequest('image')
+                ->toMediaCollection($collection);
+
+            $image_path = $media->getUrl();
         }
 
         return back()->with([
             'message' => 'Image uploaded successfully.',
-            'type' => 'success'
+            'type'    => 'success',
+            'image'   => $image_path ?? null
         ]);
     }
 
@@ -62,7 +65,7 @@ class ImageController extends Controller
 
         return back()->with([
             'message' => 'Image removed successfully.',
-            'type' => 'success'
+            'type' => 'success',
         ]);
     }
 }

@@ -137,7 +137,7 @@ const cancel = () => {
               </div>
             </div>
 
-            <div class="flex flex-col gap-2">
+            <div class="max-w-1/3 flex flex-col gap-2">
               <label
                   for="notes"
                   class="font-semibold"
