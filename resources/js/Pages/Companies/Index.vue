@@ -28,8 +28,8 @@ const props = defineProps ( { companies: Object } );
         <tr class="table-header">
           <th>Type</th>
           <th>Name</th>
-          <th>Created At</th>
           <th>Created By</th>
+          <th>Created At</th>
           <th>Actions</th>
         </tr>
         </thead>

@@ -45,7 +45,7 @@ class CompanyTableSeeder extends Seeder
         echo "\nCreating Companies\n";
 
         $episodes->each(function ($episode) use ($users) {
-            $random_user = $users->random();
+            $random_user = User::inRandomOrder()->first();
 
             // Set the causer resolver for activity logging
             CauserResolver::setCauser($random_user);

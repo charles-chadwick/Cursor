@@ -30,10 +30,7 @@ class CustomerResource extends JsonResource
                 'first_name'        => $this->first_name,
                 'last_name'         => $this->last_name,
                 'suffix'            => $this->suffix,
-                'full_name'         => trim(($this->prefix ? $this->prefix . ' ' : '') . 
-                                           $this->first_name . ' ' . 
-                                           $this->last_name . 
-                                           ($this->suffix ? ' ' . $this->suffix : '')),
+                'full_name'         => $this->full_name,
                 'email'             => $this->email,
                 'email_verified_at' => $this->email_verified_at?->format('m/d/Y h:i A'),
                 'created_at'        => $this->created_at?->format('m/d/Y h:i A'),

@@ -70,7 +70,7 @@ class CustomerTableSeeder extends Seeder
                     shuffle($character_names);
                 }
 
-                $random_user = $users->random();
+                $random_user = User::inRandomOrder()->first();
 
                 // Set the causer resolver for activity logging
                 CauserResolver::setCauser($random_user);
@@ -98,7 +98,7 @@ class CustomerTableSeeder extends Seeder
                     'first_name'        => $first_name,
                     'last_name'         => $last_name,
                     'suffix'            => fake()->optional(0.1)->randomElement(['Jr.', 'Sr.', 'II', 'III', 'IV']),
-                    'email'             => strtolower("$first_name.$last_name@example.com"),
+                    'email'             => strtolower("$first_name.$last_name".rand(1,300)."@example.com"),
                     'password'          => Hash::make('password'),
                     'email_verified_at' => fake()->optional(0.7)->dateTimeBetween($created_at, 'now'),
                     'created_by_id'     => $random_user->id,
