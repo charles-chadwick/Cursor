@@ -22,7 +22,6 @@ Route::middleware(['auth'])->group(function () {
 // User management routes - Admin only
 Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     Route::resource('customers', CustomerController::class);
-
     Route::resource('users', UserController::class);
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\IsPerson;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;

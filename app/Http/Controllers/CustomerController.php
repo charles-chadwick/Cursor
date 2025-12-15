@@ -18,7 +18,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::with(['company', 'created_by'])
+        $customers = Customer::with(['company'])
             ->ordered()
             ->paginate()
             ->withQueryString();
