@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\ContactType;
 use App\Traits\HasUserRelations;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Contact extends Base
 {
@@ -37,12 +39,18 @@ class Contact extends Base
     {
         return [
             'is_primary' => 'boolean',
+            'type'       => ContactType::class
         ];
     }
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->loadRelations();
+    }
+
+    public function contactable() : MorphTo
+    {
+        return $this->morphTo('contactable', 'on_type', 'on_id');
     }
 
 }

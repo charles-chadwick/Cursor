@@ -47,7 +47,7 @@ class Company extends Base implements HasMedia
      */
     public function contacts() : MorphMany
     {
-        return $this->morphMany(Contact::class, 'on');
+        return $this->morphMany(Contact::class, 'contactable', 'on_type', 'on_id');
     }
 
     /**
