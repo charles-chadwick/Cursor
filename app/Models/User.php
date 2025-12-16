@@ -19,9 +19,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
-use function file_exists;
-use function str;
-use function url;
+
 
 class User extends Base implements
     HasMedia,
@@ -76,7 +74,6 @@ class User extends Base implements
     {
         return $this->morphMany(Discussion::class, 'on');
     }
-
 
     public function registerMediaConversions(?Media $media = null) : void
     {

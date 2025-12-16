@@ -66,7 +66,7 @@ const cancel = () => {
             <div class="w-2/3">
               <!-- First Name and Last Name -->
               <div class="grid grid-cols-2 gap-4">
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2 mb-4">
                   <label
                       for="first_name"
                       class="font-semibold"
@@ -211,7 +211,7 @@ const cancel = () => {
               </div>
             </div>
 
-            <div class="max-w-1/3">
+            <div class="max-w-1/3 pt-4 text-center">
               <label
                   for="notes"
                   class="font-semibold"

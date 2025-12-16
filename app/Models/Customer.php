@@ -12,12 +12,15 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 
 class Customer extends Base implements
@@ -63,15 +66,16 @@ class Customer extends Base implements
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    protected function casts() : array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
-    public function __construct(array $attributes = []) {
+    public function __construct(array $attributes = [])
+    {
         parent::__construct($attributes);
         $this->loadRelations();
     }
@@ -79,7 +83,7 @@ class Customer extends Base implements
     /**
      * Get the company that owns this customer.
      */
-    public function company(): BelongsTo
+    public function company() : BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
@@ -87,7 +91,7 @@ class Customer extends Base implements
     /**
      * Get all contacts for this customer.
      */
-    public function contacts(): MorphMany
+    public function contacts() : MorphMany
     {
         return $this->morphMany(Contact::class, 'contactable');
     }
@@ -95,10 +99,38 @@ class Customer extends Base implements
     /**
      * Get all discussions for this customer.
      */
-    public function discussions(): MorphMany
+    public function discussions() : MorphMany
     {
         return $this->morphMany(Discussion::class, 'contactable');
     }
 
+    public function registerMediaConversions(?Media $media = null) : void
+    {
+        $this->addMediaConversion('avatars')
+            ->fit(Fit::Contain, 300, 300)
+            ->nonQueued();
+    }
+
+    public function registerMediaCollections() : void
+    {
+        $this->addMediaCollection('avatars')
+            ->singleFile();
+    }
+
+    public function avatar() : Attribute
+    {
+        // check to make sure it exists, default if it doesn't
+        if (!file_exists($this->getFirstMediaPath('avatars'))) {
+            $image = null;
+        } else {
+            $image = url(str($this->getFirstMediaUrl('avatars')));
+        }
+
+        return Attribute::make(
+            get: function () use ($image) {
+                return $image;
+            }
+        );
+    }
 }
 
