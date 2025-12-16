@@ -60,7 +60,7 @@ class Customer extends Base implements
         'password',
         'remember_token',
     ];
-
+    protected $appends = ['avatar', 'full_name'];
     /**
      * Get the attributes that should be cast.
      *

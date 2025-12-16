@@ -18,30 +18,30 @@ const props = defineProps ( {
 } );
 
 const is_edit = computed ( () => !! props.customer );
-const customer = props.customer.data;
+const customer = props.customer;
 
 const form = useForm ( {
-  company_id: customer.attributes?.company_id || null,
-  title: customer.attributes?.title || '',
-  prefix: customer.attributes?.prefix || '',
-  first_name: customer.attributes?.first_name || '',
-  last_name: customer.attributes?.last_name || '',
-  suffix: customer.attributes?.suffix || '',
-  email: customer.attributes?.email || '',
+  company_id: customer?.company_id || null,
+  title: customer?.title || '',
+  prefix: customer?.prefix || '',
+  first_name: customer?.first_name || '',
+  last_name: customer?.last_name || '',
+  suffix: customer?.suffix || '',
+  email: customer?.email || '',
   password: '',
   password_confirmation: '',
 } );
 
 const company_options = computed ( () => {
-  return props.companies.data.map ( company => ( {
-    label: company.attributes.name,
+  return props.companies.map ( company => ( {
+    label: company.name,
     value: company.id
   } ) );
 } );
 
 const submit = () => {
   if ( is_edit.value ) {
-    form.put ( route ( 'customers.update', props.customer.data.id ) );
+    form.put ( route ( 'customers.update', props.customer/id ) );
   } else {
     form.post ( route ( 'customers.store' ) );
   }
@@ -306,7 +306,7 @@ const cancel = () => {
                   on_type="Customer"
                   size="lg"
                   :on_id="customer.id"
-                  :image="customer.attributes.avatar"
+                  :image="customer.avatar"
               />
             </div>
           </div>

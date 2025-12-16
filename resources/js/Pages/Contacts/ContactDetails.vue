@@ -35,27 +35,27 @@ const props = defineProps({
       </div>
 
       <div class="space-y-3">
-        <div><span class="font-medium">On:</span> {{ props.contact.attributes.on_type }} #{{ props.contact.attributes.on_id }}</div>
-        <div><span class="font-medium">Type:</span> {{ props.contact.attributes.type }}</div>
-        <div><span class="font-medium">Primary:</span> {{ props.contact.attributes.is_primary ? 'Yes' : 'No' }}</div>
+        <div><span class="font-medium">On:</span> {{ props.contact.on_type }} #{{ props.contact.on_id }}</div>
+        <div><span class="font-medium">Type:</span> {{ props.contact.type }}</div>
+        <div><span class="font-medium">Primary:</span> {{ props.contact.is_primary ? 'Yes' : 'No' }}</div>
 
         <div class="pt-2 border-t">
-          <div><span class="font-medium">Address 1:</span> {{ props.contact.attributes.address_1 }}</div>
-          <div><span class="font-medium">Address 2:</span> {{ props.contact.attributes.address_2 }}</div>
-          <div><span class="font-medium">City:</span> {{ props.contact.attributes.city }}</div>
-          <div><span class="font-medium">State:</span> {{ props.contact.attributes.state }}</div>
-          <div><span class="font-medium">Postal Code:</span> {{ props.contact.attributes.postal_code }}</div>
-          <div><span class="font-medium">Country:</span> {{ props.contact.attributes.country }}</div>
+          <div><span class="font-medium">Address 1:</span> {{ props.contact.address_1 }}</div>
+          <div><span class="font-medium">Address 2:</span> {{ props.contact.address_2 }}</div>
+          <div><span class="font-medium">City:</span> {{ props.contact.city }}</div>
+          <div><span class="font-medium">State:</span> {{ props.contact.state }}</div>
+          <div><span class="font-medium">Postal Code:</span> {{ props.contact.postal_code }}</div>
+          <div><span class="font-medium">Country:</span> {{ props.contact.country }}</div>
         </div>
 
         <div class="pt-2 border-t">
           <div class="font-medium mb-1">Notes</div>
-          <div class="whitespace-pre-wrap">{{ props.contact.attributes.notes }}</div>
+          <div class="whitespace-pre-wrap">{{ props.contact.notes }}</div>
         </div>
 
         <div class="pt-2 border-t">
           <div class="font-medium mb-1">Created By</div>
-          <UserDetails :user="props.contact.relationships.created_by" />
+          <UserDetails :user="props.contact.created_by" />
         </div>
       </div>
 

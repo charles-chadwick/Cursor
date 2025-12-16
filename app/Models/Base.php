@@ -64,6 +64,18 @@ class Base extends Model
     {
         return $this->belongsTo(User::class, 'deleted_by_id');
     }
+    
+    public function getCreatedAtAttribute($value) {
+        return date('m/d/Y h:i A', strtotime($value));
+    }
+    
+    public function getUpdatedAtAttribute($value) {
+        return date('m/d/Y h:i A', strtotime($value));
+    }
+    
+    public function getDeletedAtAttribute($value) {
+        return date('m/d/Y h:i A', strtotime($value));
+    }
 
     /**
      * Configure activity log options.

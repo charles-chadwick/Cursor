@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Enums\CompanyType;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
-use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use Inertia\Inertia;
 
@@ -21,7 +20,7 @@ class CompanyController extends Controller
             ->withQueryString();
 
         return Inertia::render('Companies/Index', [
-            'companies' => CompanyResource::collection($companies),
+            'companies' => $companies,
         ]);
     }
 
@@ -55,7 +54,7 @@ class CompanyController extends Controller
     public function edit(Company $company)
     {
         return Inertia::render('Companies/Form', [
-            'company'       => new CompanyResource($company),
+            'company'       => $company,
             'company_types' => CompanyType::toSelect()
         ]);
     }

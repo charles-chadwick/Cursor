@@ -1,7 +1,6 @@
 <!--suppress NpmUsedModulesInstalled, JSUnresolvedReference, JSUnresolvedReference -->
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-
 import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
@@ -11,7 +10,7 @@ import UserDetails from "./Partials/UserDetails.vue";
 const props = defineProps ( {
   users: Object,
 } );
-
+console.log(props.users.data);
 </script>
 
 <template>
@@ -44,12 +43,12 @@ const props = defineProps ( {
             :key="user.id"
             class="table-row"
         >
-          <td class="table-cell">{{ user.attributes.role }}</td>
-          <td class="table-cell">{{ user.attributes.full_name }}</td>
+          <td class="table-cell">{{ user.role }}</td>
+          <td class="table-cell">{{ user.full_name }}</td>
           <td class="table-cell">
-            <UserDetails :user="user.relationships.created_by" />
+            <UserDetails :user="user.created_by" />
           </td>
-          <td class="table-cell">{{ user.attributes.created_at }}</td>
+          <td class="table-cell">{{ user.created_at }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
               <EditButton
@@ -59,14 +58,14 @@ const props = defineProps ( {
               <DeleteButton
                   prefix="users"
                   :id="user.id"
-                  :message="user.attributes.full_name"
+                  :message="user.full_name"
               />
             </div>
           </td>
         </tr>
         </tbody>
       </table>
-      <Pagination :pagination="props.users.meta" />
+      <Pagination :pagination="props.users" />
     </div>
   </AppLayout>
 </template>

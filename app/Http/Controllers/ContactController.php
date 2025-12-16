@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
-use App\Http\Resources\ContactResource;
 use App\Models\Contact;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ContactController extends Controller
@@ -15,13 +13,12 @@ class ContactController extends Controller
     {
         $contacts = Contact::with([
             'contactable'
-
         ])
             ->latest()
             ->paginate(15);
 
         return Inertia::render('Contacts/Index', [
-            'contacts' => ContactResource::collection($contacts),
+            'contacts' => $contacts
         ]);
     }
 
@@ -46,7 +43,7 @@ class ContactController extends Controller
         ]);
 
         return Inertia::render('Contacts/Show', [
-            'contact' => new ContactResource($contact),
+            'contact' => $contact,
         ]);
     }
 

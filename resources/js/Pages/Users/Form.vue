@@ -21,10 +21,10 @@ const user = props.user.data;
 const is_edit = computed ( () => !! user );
 
 const form = useForm ( {
-  first_name: user?.attributes.first_name || '',
-  last_name: user?.attributes.last_name || '',
-  email: user?.attributes.email || '',
-  role: user?.attributes.role || '',
+  first_name: user?.first_name || '',
+  last_name: user?.last_name || '',
+  email: user?.email || '',
+  role: user?.role || '',
   password: '',
   password_confirmation: '',
 } );
@@ -222,7 +222,7 @@ const cancel = () => {
                   on_type="User"
                   size="lg"
                   :on_id="user.id"
-                  :image="user.attributes.avatar"
+                  :image="user.avatar"
               />
             </div>
 
