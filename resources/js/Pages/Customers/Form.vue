@@ -39,9 +39,9 @@ const companyOptions = computed ( () => {
 
 const submit = () => {
   if ( is_edit.value ) {
-    form.put ( route ( 'customers.update', props.customer.data.id ));
+    form.put ( route ( 'customers.update', props.customer.data.id ) );
   } else {
-    form.post ( route ( 'customers.store' ));
+    form.post ( route ( 'customers.store' ) );
   }
 };
 
@@ -65,55 +65,57 @@ const cancel = () => {
             @submit.prevent="submit"
             class="space-y-6"
         >
-          <!-- Company -->
-          <div class="flex flex-col gap-2">
-            <label
-                for="company_id"
-                class="font-semibold"
-            >Company</label>
-            <Select
-                id="company_id"
-                v-model="form.company_id"
-                :options="companyOptions"
-                optionLabel="label"
-                optionValue="value"
-                :invalid="!!form.errors.company_id"
-                placeholder="Select a company (optional)"
-                class="w-full"
-                showClear
-            />
-            <Message
-                v-if="form.errors.company_id"
-                severity="error"
-                :closable="false"
-            >
-              {{ form.errors.company_id }}
-            </Message>
-          </div>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <!-- Company -->
+            <div class="flex flex-col gap-2">
+              <label
+                  for="company_id"
+                  class="font-semibold"
+              >Company</label>
+              <Select
+                  id="company_id"
+                  v-model="form.company_id"
+                  :options="companyOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  :invalid="!!form.errors.company_id"
+                  placeholder="Select a company (optional)"
+                  class="w-full"
+                  showClear
+              />
+              <Message
+                  v-if="form.errors.company_id"
+                  severity="error"
+                  :closable="false"
+              >
+                {{ form.errors.company_id }}
+              </Message>
+            </div>
 
-          <!-- Title -->
-          <div class="flex flex-col gap-2">
-            <label
-                for="title"
-                class="font-semibold"
-            >Title</label>
-            <InputText
-                id="title"
-                v-model="form.title"
-                :invalid="!!form.errors.title"
-                placeholder="Enter job title (optional)"
-            />
-            <Message
-                v-if="form.errors.title"
-                severity="error"
-                :closable="false"
-            >
-              {{ form.errors.title }}
-            </Message>
+            <!-- Title -->
+            <div class="flex flex-col gap-2">
+              <label
+                  for="title"
+                  class="font-semibold"
+              >Title</label>
+              <InputText
+                  id="title"
+                  v-model="form.title"
+                  :invalid="!!form.errors.title"
+                  placeholder="Enter job title (optional)"
+              />
+              <Message
+                  v-if="form.errors.title"
+                  severity="error"
+                  :closable="false"
+              >
+                {{ form.errors.title }}
+              </Message>
+            </div>
           </div>
 
           <!-- Prefix, First Name, Last Name, Suffix -->
-          <div class="grid grid-cols-4 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div class="flex flex-col gap-2">
               <label
                   for="prefix"
@@ -218,21 +220,22 @@ const cancel = () => {
           </div>
 
           <!-- Password Fields -->
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="flex flex-col gap-2">
               <label
                   for="password"
                   class="font-semibold"
-              >Password {{ is_edit ? '(leave blank to keep current)' : '' }}</label>
+              >Password</label>
               <Password
                   id="password"
                   v-model="form.password"
                   :invalid="!!form.errors.password"
                   :placeholder="is_edit ? 'Enter new password' : 'Enter password'"
                   toggleMask
+                  fluid
                   :feedback="false"
-                  class="w-full"
               />
+              <p v-if="is_edit">(leave blank to keep current)</p>
               <Message
                   v-if="form.errors.password"
                   severity="error"
@@ -241,7 +244,6 @@ const cancel = () => {
                 {{ form.errors.password }}
               </Message>
             </div>
-
             <div class="flex flex-col gap-2">
               <label
                   for="password_confirmation"
@@ -253,8 +255,8 @@ const cancel = () => {
                   :invalid="!!form.errors.password_confirmation"
                   placeholder="Confirm password"
                   toggleMask
+                  fluid
                   :feedback="false"
-                  class="w-full"
               />
               <Message
                   v-if="form.errors.password_confirmation"
@@ -264,10 +266,11 @@ const cancel = () => {
                 {{ form.errors.password_confirmation }}
               </Message>
             </div>
+
           </div>
 
           <!-- Form Actions -->
-          <div class="flex gap-4 pt-4">
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
             <Button
                 type="submit"
                 :label="is_edit ? 'Update Customer' : 'Create Customer'"

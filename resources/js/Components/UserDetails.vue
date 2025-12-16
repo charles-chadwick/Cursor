@@ -1,6 +1,6 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
-import { Popover } from "primevue";
+import { Popover, Button } from "primevue";
 import Avatar from "./Avatar.vue";
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
@@ -24,9 +24,18 @@ const toggle = ( event ) => {
   <Popover ref="op">
     <div class="px-2 py-1">
       <h1 class="font-bold">{{ user.attributes.full_name }}</h1>
-      <Avatar :image="user.attributes.avatar" size="md" />
+      <p>{{ user.attributes.role }}</p>
+      <p>{{ user.attributes.email }}</p>
+      <!-- I had to do the image up like this because the avatar component was not working -->
       <Link :href="route('users.show', user.id)">
+      <img
+        :src="user.attributes.avatar"
+        alt="Avatar"
+        class="rounded-xl size-32 border-2 border-darker-300 hover:border-primary-600 cursor-pointer" />
+
+        <Button class="mt-2 w-full">
         Go to profile
+        </Button>
       </Link>
     </div>
   </Popover>

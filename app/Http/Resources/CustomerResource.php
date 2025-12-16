@@ -13,7 +13,7 @@ class CustomerResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray(Request $request) : array
     {
         if (!isset($this->id)) {
             return parent::toArray($request);
@@ -23,19 +23,20 @@ class CustomerResource extends JsonResource
             'type'          => 'customer',
             'id'            => $this->id,
             'attributes'    => [
-                'id'                => $this->id,
-                'company_id'        => $this->company_id,
-                'title'             => $this->title,
-                'prefix'            => $this->prefix,
-                'first_name'        => $this->first_name,
-                'last_name'         => $this->last_name,
-                'suffix'            => $this->suffix,
-                'full_name'         => $this->full_name,
-                'email'             => $this->email,
-                'email_verified_at' => $this->email_verified_at?->format('m/d/Y h:i A'),
-                'created_at'        => $this->created_at?->format('m/d/Y h:i A'),
-                'updated_at'        => $this->updated_at?->format('m/d/Y h:i A'),
-                'deleted_at'        => $this->deleted_at?->format('m/d/Y h:i A'),
+                'id'                    => $this->id,
+                'company_id'            => $this->company_id,
+                'title'                 => $this->title,
+                'prefix'                => $this->prefix,
+                'first_name'            => $this->first_name,
+                'last_name'             => $this->last_name,
+                'suffix'                => $this->suffix,
+                'full_name'             => $this->full_name,
+                'full_name_salutations' => $this->full_name_with_salutations,
+                'email'                 => $this->email,
+                'email_verified_at'     => $this->email_verified_at?->format('m/d/Y h:i A'),
+                'created_at'            => $this->created_at?->format('m/d/Y h:i A'),
+                'updated_at'            => $this->updated_at?->format('m/d/Y h:i A'),
+                'deleted_at'            => $this->deleted_at?->format('m/d/Y h:i A'),
             ],
             'relationships' => [
                 'company'    => new CompanyResource($this->whenLoaded('company')),

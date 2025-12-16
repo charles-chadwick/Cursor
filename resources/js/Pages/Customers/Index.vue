@@ -28,6 +28,7 @@ const props = defineProps ( { customers: Object } );
         <thead>
         <tr class="table-header">
           <th>Name</th>
+          <th>Job Title</th>
           <th>Company</th>
           <th>Created By</th>
           <th>Created At</th>
@@ -40,7 +41,8 @@ const props = defineProps ( { customers: Object } );
             :key="customer.id"
             class="table-row"
         >
-          <td class="table-cell">{{ customer.attributes.full_name }}</td>
+          <td class="table-cell">{{ customer.attributes.full_name_salutations }}</td>
+          <td class="table-cell">{{ customer.attributes.title }}</td>
           <td class="table-cell">
             {{ customer.relationships.company?.attributes?.name }}
           </td>

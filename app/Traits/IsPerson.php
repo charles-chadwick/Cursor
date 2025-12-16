@@ -14,6 +14,11 @@ trait IsPerson
         return "{$this->first_name} {$this->last_name}";
     }
 
+    public function getFullNameWithSalutationsAttribute() : string
+    {
+        return trim($this?->prefix.' '.$this->first_name.' '.$this->last_name.' '.$this?->suffix);
+    }
+
     public function getInitialsAttribute() : string
     {
         return $this->first_name[0].$this->last_name[0];
