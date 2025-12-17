@@ -10,7 +10,7 @@ import UserDetails from "./Partials/UserDetails.vue";
 const props = defineProps ( {
   users: Object,
 } );
-console.log(props.users.data);
+
 </script>
 
 <template>

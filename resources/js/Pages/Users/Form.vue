@@ -213,7 +213,7 @@ const cancel = () => {
 
             <div class="max-w-1/3">
               <label
-                  for="notes"
+                  for="avatar"
                   class="font-semibold"
               >Avatar</label>
               <Image
