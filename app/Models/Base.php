@@ -5,12 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Facades\CauserResolver;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use function activity;
 
 class Base extends Model
 {
     use SoftDeletes, LogsActivity;
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'created_at' => 'datetime:m/d/Y h:i A',
+        'updated_at' => 'datetime:m/d/Y h:i A',
+        'deleted_at' => 'datetime:m/d/Y h:i A',
+    ];
 
     /**
      * Boot the model and register event listeners.
@@ -29,6 +42,7 @@ class Base extends Model
         static::updating(function ($model) {
             if (auth()->check()) {
                 $model->updated_by_id = auth()->id();
+
             }
         });
 
@@ -39,7 +53,6 @@ class Base extends Model
             }
         });
     }
-
 
     /**
      * Get the user that created this record.
