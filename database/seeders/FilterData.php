@@ -45,7 +45,8 @@ class FilterData
         'genital',
         'sperm',
         'taint',
-        'erotic'
+        'erotic',
+        'shmlangela'
     ];
     private Collection $data;
 

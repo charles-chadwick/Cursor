@@ -28,7 +28,7 @@ Users will have three roles:
     - Manager (all privilieges except User Management)
     - Sales Rep (can only manage Customers)
 
-Companies will have many Customers. Both Comapnies and Customers can have many Contacts, which are polymorphic. 
+Companies will have many Customers. Both Companies and Customers can have many Contacts, which are polymorphic. 
 
 Discussions are polymorphic and can be between users, or users and customers.
 

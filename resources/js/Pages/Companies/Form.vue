@@ -148,8 +148,8 @@ const cancel = () => {
                   image_type="logo"
                   on_type="Company"
                   size="lg"
-                  :on_id="props.company/id"
-                  :image="props.company/logo"
+                  :on_id="props.company.data.id"
+                  :image="props.company.data.attributes.logo"
               />
             </div>
           </div>

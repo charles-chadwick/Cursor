@@ -43,6 +43,8 @@ class User extends Base implements
         'password'
     ];
 
+    protected $appends = ['avatar', 'full_name'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -65,7 +67,6 @@ class User extends Base implements
             'password'          => 'hashed',
         ];
     }
-
 
     /**
      * Get all discussions for this user.

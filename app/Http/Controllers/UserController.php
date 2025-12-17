@@ -23,7 +23,7 @@ class UserController extends Controller
             ->withQueryString();
 
         return Inertia::render('Users/Index', [
-            'users' => UserResource::collection($users),
+            'users' => $users,
         ]);
     }
 
@@ -59,7 +59,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return Inertia::render('Users/Form', [
-            'user'  => new UserResource($user),
+            'user'  => $user,
             'roles' => array_map(fn($role) => $role->value, UserRole::cases()),
         ]);
     }

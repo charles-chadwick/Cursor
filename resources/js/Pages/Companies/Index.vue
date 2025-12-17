@@ -43,7 +43,7 @@ const props = defineProps ( { companies: Object } );
           <td class="table-cell">{{ company.type }}</td>
           <td class="table-cell">{{ company.name }}</td>
           <td class="table-cell">
-            <UserDetails :user="company.relationships.created_by" />
+            <UserDetails :user="company.created_by" />
           </td>
           <td class="table-cell">{{ company.created_at }}</td>
           <td class="table-cell">
@@ -63,7 +63,7 @@ const props = defineProps ( { companies: Object } );
         </tbody>
       </table>
       <Pagination
-        :pagination="props.companies.meta"
+        :pagination="props.companies"
       />
     </div>
   </AppLayout>

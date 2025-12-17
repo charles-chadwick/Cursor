@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
-use App\Http\Resources\CompanyResource;
-use App\Http\Resources\CustomerResource;
 use App\Models\Company;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +22,7 @@ class CustomerController extends Controller
             ->withQueryString();
 
         return Inertia::render('Customers/Index', [
-            'customers' => CustomerResource::collection($customers),
+            'customers' => $customers,
         ]);
     }
 
@@ -36,7 +34,7 @@ class CustomerController extends Controller
         $companies = Company::orderBy('name', 'asc')->get();
 
         return Inertia::render('Customers/Form', [
-            'companies' => CompanyResource::collection($companies),
+            'companies' => $companies,
         ]);
     }
 
@@ -65,8 +63,8 @@ class CustomerController extends Controller
         $companies = Company::orderBy('name', 'asc')->get();
 
         return Inertia::render('Customers/Form', [
-            'customer'  => new CustomerResource($customer->load(['company', 'created_by', 'updated_by'])),
-            'companies' => CompanyResource::collection($companies),
+            'customer'  => $customer->load(['company']),
+            'companies' => $companies,
         ]);
     }
 
