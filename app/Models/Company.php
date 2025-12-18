@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\HasUserRelations;
+use App\Traits\HasContacts;
+use App\Traits\HasUsers;
 use App\Traits\Orderable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,8 +16,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Company extends Base implements HasMedia
 {
-    use InteractsWithMedia, LogsActivity, HasUserRelations;
-    use Orderable;
+    use InteractsWithMedia, LogsActivity, HasUsers;
+    use Orderable, HasContacts;
 
     /**
      * The attributes that are mass-assignable.
@@ -44,13 +45,6 @@ class Company extends Base implements HasMedia
         return $this->hasMany(Customer::class);
     }
 
-    /**
-     * Get all contacts for this company.
-     */
-    public function contacts() : MorphMany
-    {
-        return $this->morphMany(Contact::class, 'contactable', 'on_type', 'on_id');
-    }
 
     /**
      * Get all discussions for this company.

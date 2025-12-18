@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use App\Traits\HasContacts;
 use App\Traits\HasContactsRelations;
-use App\Traits\HasUserRelations;
+use App\Traits\HasUsers;
 use App\Traits\IsPerson;
 use App\Traits\Orderable;
 use Illuminate\Auth\Authenticatable;
@@ -30,11 +31,11 @@ class Customer extends Base implements
     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
-    use Notifiable, HasRoles, InteractsWithMedia, HasUserRelations, HasContactsRelations;
-    use Orderable, IsPerson;
+    use Notifiable, HasRoles, InteractsWithMedia, HasUsers;
+    use Orderable, IsPerson, HasContacts;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
@@ -60,7 +61,8 @@ class Customer extends Base implements
         'password',
         'remember_token',
     ];
-    protected $appends = ['avatar', 'full_name'];
+
+
     /**
      * Get the attributes that should be cast.
      *
@@ -86,14 +88,6 @@ class Customer extends Base implements
     public function company() : BelongsTo
     {
         return $this->belongsTo(Company::class);
-    }
-
-    /**
-     * Get all contacts for this customer.
-     */
-    public function contacts() : MorphMany
-    {
-        return $this->morphMany(Contact::class, 'contactable');
     }
 
     /**

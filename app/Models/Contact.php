@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use App\Enums\ContactType;
-use App\Traits\HasUserRelations;
+use App\Traits\HasUsers;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Contact extends Base
 {
 
-    use HasUserRelations;
+    use HasUsers;
 
     /**
      * The attributes that are mass-assignable.

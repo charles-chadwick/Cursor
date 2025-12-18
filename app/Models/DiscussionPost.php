@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Traits\HasUserRelations;
+use App\Traits\HasUsers;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DiscussionPost extends Base
 {
-    use HasUserRelations;
+    use HasUsers;
 
     /**
      * The attributes that are mass-assignable.
