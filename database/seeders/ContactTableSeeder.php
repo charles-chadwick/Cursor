@@ -6,7 +6,6 @@ use App\Enums\ContactType;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Customer;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use function fake;
 use function preg_split;
@@ -24,9 +23,10 @@ class ContactTableSeeder extends Seeder
         foreach ($customers as $customer) {
             $contactCount = rand(1, 3);
 
-            $street_address = preg_split('/Suite|Apt/', fake()->streetAddress());
-
             for ($i = 0 ; $i < $contactCount ; $i++) {
+
+                $street_address = preg_split('/Suite|Apt/', fake()->streetAddress());
+
                 Contact::create([
                     'on_id'       => $customer->id,
                     'on_type'     => Customer::class,
@@ -55,9 +55,10 @@ class ContactTableSeeder extends Seeder
         foreach ($companies as $company) {
             $contactCount = rand(1, 3);
 
-            $street_address = preg_split('/Suite|Apt/', fake()->streetAddress());
+
 
             for ($i = 0 ; $i < $contactCount ; $i++) {
+                $street_address = preg_split('/Suite|Apt/', fake()->streetAddress());
                 Contact::create([
                     'on_id'       => $company->id,
                     'on_type'     => Company::class,
