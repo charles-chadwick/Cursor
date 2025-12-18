@@ -17,30 +17,30 @@ const app_name = import.meta.env.VITE_APP_NAME || 'Laravel';
 const my_preset = definePreset(Aura, {
     semantic: {
         primary: {
-            50: '{teal.50}',
-            100: '{teal.100}',
-            200: '{teal.200}',
-            300: '{teal.300}',
-            400: '{teal.400}',
-            500: '{teal.500}',
-            600: '{teal.600}',
-            700: '{teal.700}',
-            800: '{teal.800}',
-            900: '{teal.900}',
-            950: '{teal.950}'
+            50: '{purple.50}',
+            100: '{purple.100}',
+            200: '{purple.200}',
+            300: '{purple.300}',
+            400: '{purple.400}',
+            500: '{purple.500}',
+            600: '{purple.600}',
+            700: '{purple.700}',
+            800: '{purple.800}',
+            900: '{purple.900}',
+            950: '{purple.950}'
         },
         secondary: {
-            50: '{orange.50}',
-            100: '{orange.100}',
-            200: '{orange.200}',
-            300: '{orange.300}',
-            400: '{orange.400}',
-            500: '{orange.500}',
-            600: '{orange.600}',
-            700: '{orange.700}',
-            800: '{orange.800}',
-            900: '{orange.900}',
-            950: '{orange.950}'
+            50: '{lime.50}',
+            100: '{lime.100}',
+            200: '{lime.200}',
+            300: '{lime.300}',
+            400: '{lime.400}',
+            500: '{lime.500}',
+            600: '{lime.600}',
+            700: '{lime.700}',
+            800: '{lime.800}',
+            900: '{lime.900}',
+            950: '{lime.950}'
         },
         colorScheme: {
             light: {

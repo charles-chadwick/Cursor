@@ -41,7 +41,7 @@ const company_options = computed ( () => {
 
 const submit = () => {
   if ( is_edit.value ) {
-    form.put ( route ( 'customers.update', props.customer/id ) );
+    form.put ( route ( 'customers.update', props.customer.id ) );
   } else {
     form.post ( route ( 'customers.store' ) );
   }
@@ -55,14 +55,7 @@ const cancel = () => {
 <template>
   <Head title="Customers" />
   <AppLayout>
-    <div class="px-8 py-4">
-      <div class="mb-6">
-        <h1 class="text-3xl font-bold text-darker-900">
-          {{ is_edit ? 'Edit Customer' : 'Create Customer' }}
-        </h1>
-      </div>
 
-      <div class="bg-white rounded-lg shadow p-6">
         <form
             @submit.prevent="submit"
             class="space-y-6"
@@ -311,7 +304,5 @@ const cancel = () => {
             </div>
           </div>
         </form>
-      </div>
-    </div>
   </AppLayout>
 </template>

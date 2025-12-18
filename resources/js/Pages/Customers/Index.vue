@@ -7,6 +7,7 @@ import { ConfirmDialog } from "primevue";
 import { Head } from "@inertiajs/vue3";
 import UserDetails from "../Users/Partials/Details.vue";
 import CompanyDetails from '../Companies/Partials/Details.vue';
+import CustomerDetails from './Partials/Details.vue';
 const props = defineProps ( { customers: Object } );
 </script>
 
@@ -42,7 +43,9 @@ const props = defineProps ( { customers: Object } );
             :key="customer.id"
             class="table-row"
         >
-          <td class="table-cell">{{ customer.full_name }}</td>
+          <td class="table-cell">
+            <CustomerDetails :customer="customer" />
+          </td>
           <td class="table-cell">{{ customer.title }}</td>
           <td class="table-cell click">
             <CompanyDetails

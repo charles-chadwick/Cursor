@@ -1,30 +1,35 @@
-<!--suppress JSUnresolvedReference -->
 <script setup>
-import AppLayout from "../../Layouts/AppLayout.vue";
-import { Head } from '@inertiajs/vue3'
-import Contacts from '../Contacts/Partials/Details.vue'
+import { computed } from 'vue';
+import { Head } from '@inertiajs/vue3';
+import AppLayout from "@/Layouts/AppLayout.vue";
+import Contacts from '@/Pages/Contacts/Partials/Details.vue';
 
-const props = defineProps ( {
-  company: Object,
-} )
+const { company } = defineProps ( {
+  company: {
+    type: Object,
+    required: true
+  },
+} );
 
-const company = props.company;
-
+const pageTitle = computed ( () => `${ company.name } Information` );
 </script>
 
 <template>
   <AppLayout>
-    <Head :title="company.name + ` Information`" />
-    <!-- start banner -->
-    <div class="px-8 py-4 text-left">
-      <div class="bg-white rounded-lg shadow p-6 flex justify-between">
+    <Head :title="pageTitle" />
 
+    <div class="px-8 py-4 text-left">
+      <div class="p-6 flex justify-between">
         <div class="flex gap-4">
-          <div v-if="company.logo !== null">
+          <!-- Logo Section -->
+          <div
+              v-if="company.logo"
+              class="size-32"
+          >
             <img
                 :src="company.logo"
-                alt="Company Logo"
-                class="size-32 rounded-xl border-2 border-darker-300 flex items-center justify-center"
+                :alt="`${company.name} Logo`"
+                class="size-full rounded-xl border-2 border-darker-300 object-cover"
             >
           </div>
           <div
@@ -34,21 +39,24 @@ const company = props.company;
             <p>No Logo</p>
           </div>
 
+          <!-- Company Info -->
           <div>
             <h1 class="text-3xl font-bold text-darker-900">
               {{ company.name }}
             </h1>
-            <p>
+            <p class="text-darker-600">
               {{ company.type }}
             </p>
           </div>
         </div>
 
-        <Contacts :contacts="company.contacts" :on_id="company.id" on_type="Company" />
+        <!-- Contacts Component -->
+        <Contacts
+            :contacts="company.contacts"
+            :on_id="company.id"
+            on_type="Company"
+        />
       </div>
     </div>
-
-    <!-- start banner -->
-
   </AppLayout>
 </template>
