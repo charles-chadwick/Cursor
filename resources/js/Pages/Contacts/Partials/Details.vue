@@ -1,18 +1,22 @@
 <!--suppress NpmUsedModulesInstalled, JSValidateTypes, JSUnresolvedReference -->
 <script setup>
-import { Select, Dialog, Button, InputText, InputMask, Checkbox, Textarea, Message } from "primevue";
+import { Select, Dialog, Button, InputText, InputMask, Checkbox, Textarea, Message, ConfirmDialog } from "primevue";
 import { onMounted, computed, ref } from "vue";
 import { useForm, usePage } from '@inertiajs/vue3';
+import { useConfirm } from 'primevue/useconfirm';
 
 const selected_contact = ref ( null );
 const showDialog = ref ( false );
 const dialog_mode = ref ( 'create' );
+const confirm = useConfirm ();
 
 const props = defineProps ( {
   contacts: Object,
   on_id: Number,
   on_type: String,
 } );
+
+let contacts = props.contacts;
 
 const page = usePage();
 
@@ -28,6 +32,8 @@ const form = useForm ( {
   state: null,
   postal_code: null,
   country: null,
+  phone: null,
+  fax: null,
   notes: null,
 } );
 
@@ -55,14 +61,46 @@ const openEditDialog = () => {
   form.state = current_contact.value.state;
   form.postal_code = current_contact.value.postal_code;
   form.country = current_contact.value.country;
+  form.phone = current_contact.value.phone;
+  form.fax = current_contact.value.fax;
   form.notes = current_contact.value.notes;
   showDialog.value = true;
+};
+
+const deleteContact = () => {
+  if ( ! current_contact.value ) return;
+
+  confirm.require ( {
+    message: 'Are you sure you want to delete this contact?',
+    header: 'Confirm Deletion',
+    icon: 'pi pi-exclamation-triangle',
+    rejectLabel: 'Cancel',
+    acceptLabel: 'Delete',
+    rejectClass: 'p-button-secondary p-button-outlined',
+    acceptClass: 'p-button-danger',
+    accept: () => {
+      form.delete ( route ( 'contacts.destroy', current_contact.value.id ), {
+        onSuccess: () => {
+          const contactIndex = contacts.findIndex ( contact => contact.id === current_contact.value.id );
+          if ( contactIndex !== - 1 ) {
+            contacts.splice ( contactIndex, 1 );
+          }
+          selected_contact.value = null;
+        },
+      } );
+    }
+  } );
 };
 
 const submit = () => {
   if ( dialog_mode.value === 'edit' ) {
     form.put ( route ( 'contacts.update', form.id ), {
-      onSuccess: () => {
+      onSuccess: ( response ) => {
+        const contactIndex = contacts.findIndex ( contact => contact.id === form.id );
+        if ( contactIndex !== - 1 ) {
+          contacts.splice ( contactIndex, 1, response.props.contact );
+        }
+        selected_contact.value = `${ form.id }`;
         showDialog.value = false;
         form.reset ();
       },
@@ -71,7 +109,10 @@ const submit = () => {
   }
 
   form.post ( route ( 'contacts.store' ), {
-    onSuccess: () => {
+    onSuccess: ( response ) => {
+      console.log(response.props);
+      // contacts.push ( response.props.contact );
+      // selected_contact.value = `${ response.props.contact.id }`;
       showDialog.value = false;
       form.reset ();
     },
@@ -79,29 +120,31 @@ const submit = () => {
 };
 
 const contact_options = computed ( () => {
-  return props.contacts.map ( contact => ( {
+  return contacts.map ( contact => ( {
     label: `${ contact.type }`,
     value: `${ contact.id }`
   } ) );
 } );
 
 const primary_contact = computed ( () => {
-  return props.contacts.find ( contact => contact.is_primary ) || props.contacts[ 0 ] || null;
+  return contacts.find ( contact => contact.is_primary ) || contacts[ 0 ] || null;
 } );
 
 const current_contact = computed ( () => {
   if ( ! selected_contact.value ) return null;
-  return props.contacts.find ( contact => `${ contact.id }` === selected_contact.value );
+  return contacts.find ( contact => `${ contact.id }` === selected_contact.value );
 } );
 
 onMounted ( () => {
   if ( primary_contact.value ) {
     selected_contact.value = `${ primary_contact.value.id }`;
+
   }
 } );
 </script>
 
 <template>
+  <ConfirmDialog />
   <div class="w-80">
 
     <div
@@ -126,6 +169,7 @@ onMounted ( () => {
             optionLabel="label"
             optionValue="value"
             placeholder="Select a contact"
+            empty-filter-message="No contacts"
             class="w-full"
         />
 
@@ -155,11 +199,19 @@ onMounted ( () => {
 
           <p v-if="current_contact.phone">Phone: {{ current_contact.phone }}</p>
           <p v-if="current_contact.fax">Fax: {{ current_contact.fax }}</p>
-          <a
-              @click.prevent="openEditDialog"
-              href="#"
-              class="text-primary-700 hover:underline"
-          >Edit</a>
+          <div class="flex gap-2">
+            <a
+                @click.prevent="openEditDialog"
+                href="#"
+                class="text-primary-700 hover:underline"
+            >Edit</a>
+            <a
+                @click.prevent="deleteContact"
+                href="#"
+                class="text-red-700 hover:underline"
+            >Delete</a>
+          </div>
+
         </div>
       </div>
     </div>
