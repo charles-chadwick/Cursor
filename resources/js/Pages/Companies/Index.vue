@@ -41,10 +41,10 @@ const props = defineProps ( { companies: Object } );
             class="table-row"
         >
           <td class="table-cell">{{ company.type }}</td>
-          <td class="table-cell">
+          <td class="table-cell click">
             <CompanyDetails :company="company" />
           </td>
-          <td class="table-cell">
+          <td class="table-cell  click">
             <UserDetails :user="company.created_by" />
           </td>
           <td class="table-cell">{{ company.created_at }}</td>

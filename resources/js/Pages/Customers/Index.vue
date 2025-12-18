@@ -14,6 +14,7 @@ const props = defineProps ( { customers: Object } );
 <template>
   <Head title="Customers" />
   <AppLayout>
+
     <ConfirmDialog />
 
     <div class="px-8 py-4">
@@ -44,14 +45,14 @@ const props = defineProps ( { customers: Object } );
         >
           <td class="table-cell">{{ customer.full_name }}</td>
           <td class="table-cell">{{ customer.title }}</td>
-          <td class="table-cell">
+          <td class="table-cell click">
             <CompanyDetails
                 v-if="customer?.company"
                 :company="customer?.company"
             />
           </td>
 
-          <td class="table-cell">
+          <td class="table-cell click">
             <UserDetails :user="customer.created_by" />
           </td>
           <td class="table-cell">{{ customer.created_at }}</td>

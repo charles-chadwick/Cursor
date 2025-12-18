@@ -63,7 +63,7 @@ const props = defineProps ( {
             {{ contact.city }}
           </td>
 
-          <td class="table-cell">
+          <td class="table-cell  click">
             <UserDetails :user="contact.created_by" />
           </td>
 

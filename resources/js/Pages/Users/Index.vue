@@ -45,7 +45,7 @@ const props = defineProps ( {
         >
           <td class="table-cell">{{ user.role }}</td>
           <td class="table-cell">{{ user.full_name }}</td>
-          <td class="table-cell">
+          <td class="table-cell  click">
             <UserDetails :user="user.created_by" />
           </td>
           <td class="table-cell">{{ user.created_at }}</td>

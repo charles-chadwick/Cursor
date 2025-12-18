@@ -55,8 +55,13 @@
 
 .table-row {
     @apply border-b border-darker-200 odd:bg-darker-100;
+    @apply hover:bg-darker-200;
 }
 
 .table-cell {
     @apply text-sm px-4 py-2;
+}
+
+.click {
+    @apply cursor-pointer hover:text-accent-500;
 }

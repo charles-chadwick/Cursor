@@ -26,7 +26,7 @@ const toggle = ( event ) => {
       <!-- I had to do the image up like this because the logo component was not working -->
       <div class="px-2 py-1 flex justify-between text-sm cursor-pointer">
 
-        <div class="rounded-xl border-2 border-darker-300">
+        <div class="border-2 border-darker-300  rounded-2xl">
         <img
             v-if="company?.logo"
             :src="company?.logo"
