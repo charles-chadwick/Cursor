@@ -25,6 +25,7 @@ class Base extends Model
         'deleted_at' => 'datetime:m/d/Y h:i A',
     ];
 
+
     /**
      * Boot the model and register event listeners.
      */
@@ -76,18 +77,6 @@ class Base extends Model
     public function deleted_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by_id');
-    }
-    
-    public function getCreatedAtAttribute($value) {
-        return date('m/d/Y h:i A', strtotime($value));
-    }
-    
-    public function getUpdatedAtAttribute($value) {
-        return date('m/d/Y h:i A', strtotime($value));
-    }
-    
-    public function getDeletedAtAttribute($value) {
-        return date('m/d/Y h:i A', strtotime($value));
     }
 
     /**

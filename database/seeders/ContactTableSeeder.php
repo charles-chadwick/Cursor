@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\ContactType;
+use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Customer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,6 +30,37 @@ class ContactTableSeeder extends Seeder
                 Contact::create([
                     'on_id'       => $customer->id,
                     'on_type'     => Customer::class,
+                    'type'        => $contact_types[array_rand($contact_types)]->value,
+                    'is_primary'  => $i === 0,
+                    'address_1'   => $street_address[0],
+                    'address_2'   => fake()->buildingNumber(),
+                    'city'        => fake()->city(),
+                    'state'       => fake()->randomElement([
+                        'OR',
+                        'WA',
+                        'CA',
+                        'TX'
+                    ]),
+                    'postal_code' => fake()->postcode(),
+                    'country'     => 'US',
+                    'phone'       => fake()->phoneNumber(),
+                    'fax'         => fake()->phoneNumber(),
+                    'notes'       => rand(0, 1) ? fake()->sentence() : null,
+                ]);
+            }
+        }
+        $companies = Company::all();
+        $contact_types = ContactType::cases();
+
+        foreach ($companies as $company) {
+            $contactCount = rand(1, 3);
+
+            $street_address = preg_split('/Suite|Apt/', fake()->streetAddress());
+
+            for ($i = 0 ; $i < $contactCount ; $i++) {
+                Contact::create([
+                    'on_id'       => $company->id,
+                    'on_type'     => Company::class,
                     'type'        => $contact_types[array_rand($contact_types)]->value,
                     'is_primary'  => $i === 0,
                     'address_1'   => $street_address[0],
