@@ -3,16 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Facades\CauserResolver;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-use function activity;
 
-class Base extends Model
+abstract class Base extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use SoftDeletes;
+    use LogsActivity;
 
     /**
      * The attributes that should be cast.
@@ -25,11 +24,12 @@ class Base extends Model
         'deleted_at' => 'datetime:m/d/Y h:i A',
     ];
 
-
     /**
-     * Boot the model and register event listeners.
+     * Boot the model.
+     *
+     * @return void
      */
-    protected static function boot() : void
+    protected static function boot(): void
     {
         parent::boot();
 
@@ -43,7 +43,6 @@ class Base extends Model
         static::updating(function ($model) {
             if (auth()->check()) {
                 $model->updated_by_id = auth()->id();
-
             }
         });
 
@@ -53,10 +52,101 @@ class Base extends Model
                 $model->save();
             }
         });
+
+        // Activity logging
+        static::created(function ($model) {
+            if (auth()->check()) {
+                activity()
+                    ->performedOn($model)
+                    ->causedBy(auth()->user())
+                    ->log(class_basename($model) . ' created');
+            }
+        });
+
+        static::updated(function ($model) {
+            if (auth()->check()) {
+                activity()
+                    ->performedOn($model)
+                    ->causedBy(auth()->user())
+                    ->log(class_basename($model) . ' updated');
+            }
+        });
+
+        static::deleted(function ($model) {
+            if (auth()->check()) {
+                activity()
+                    ->performedOn($model)
+                    ->causedBy(auth()->user())
+                    ->log(class_basename($model) . ' deleted');
+            }
+        });
+
+        static::restored(function ($model) {
+            if (auth()->check()) {
+                activity()
+                    ->performedOn($model)
+                    ->causedBy(auth()->user())
+                    ->log(class_basename($model) . ' restored');
+            }
+        });
+
+        static::forceDeleted(function ($model) {
+            if (auth()->check()) {
+                activity()
+                    ->performedOn($model)
+                    ->causedBy(auth()->user())
+                    ->log(class_basename($model) . ' permanently deleted');
+            }
+        });
+    }
+
+
+    /**
+     * Load default relationships.
+     *
+     * @return array
+     */
+    protected static function booted(): void
+    {
+        parent::booted();
+
+        if (static::class !== User::class) {
+            static::retrieved(function ($model) {
+                $model->loadMissing(['created_by', 'updated_by', 'deleted_by']);
+            });
+        }
     }
 
     /**
-     * Get the user that created this record.
+     * Get the activity log options.
+     *
+     * @return LogOptions
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
+
+    /**
+     * Get the fillable attributes.
+     *
+     * @return array
+     */
+    public function getFillable(): array
+    {
+        return array_merge(
+            $this->fillable,
+            ['created_at', 'updated_at', 'deleted_at']
+        );
+    }
+
+    /**
+     * Get the user who created this record.
+     *
+     * @return BelongsTo
      */
     public function created_by(): BelongsTo
     {
@@ -64,7 +154,9 @@ class Base extends Model
     }
 
     /**
-     * Get the user that updated this record.
+     * Get the user who last updated this record.
+     *
+     * @return BelongsTo
      */
     public function updated_by(): BelongsTo
     {
@@ -72,22 +164,13 @@ class Base extends Model
     }
 
     /**
-     * Get the user that deleted this record.
+     * Get the user who deleted this record.
+     *
+     * @return BelongsTo
      */
     public function deleted_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by_id');
     }
 
-    /**
-     * Configure activity log options.
-     */
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
-    }
 }
-
