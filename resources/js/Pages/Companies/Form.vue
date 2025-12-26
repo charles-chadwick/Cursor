@@ -44,7 +44,7 @@ const cancel = () => {
 <template>
   <Head title="Companies" />
   <AppLayout>
-    <div class="px-8 py-4">
+    <div class="px-8 md:py-4">
       <FormHeader
           :header="is_edit ? 'Edit Company' : 'Create Company'"
           to_route="companies.index"

@@ -17,7 +17,7 @@ const cancel = () => {
 
 <template>
   <div class="mb-6 flex justify-between items-center">
-    <h1 class="text-3xl font-bold text-darker-900">
+    <h1 class="text-xl md:text-3xl font-bold text-darker-900">
       {{ props.header }}
     </h1>
     <Button
@@ -25,7 +25,7 @@ const cancel = () => {
         :label="props.label"
         severity="secondary"
         outlined
-        icon="pi pi-left-arrow"
+        icon="pi pi-arrow-left"
         @click="cancel"
     />
   </div>

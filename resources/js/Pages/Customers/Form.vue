@@ -55,12 +55,12 @@ const cancel = () => {
 
 <template>
   <Head title="Customers" />
-  <AppLayout header="hi">
-    <div class="px-8 py-4">
+  <AppLayout>
+    <div class="px-8 md:py-4">
       <FormHeader
           :header="is_edit ? 'Edit Customer' : 'Create Customer'"
           to_route="customers.index"
-          label="Back to Customers"w
+          label="Back to Customers"
       />
       <Card>
         <form
