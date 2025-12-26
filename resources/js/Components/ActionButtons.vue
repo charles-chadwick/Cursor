@@ -11,7 +11,8 @@ export const CreateButton = defineComponent ( {
     message: String,
     query_parameters: {
       type: Object,
-      default: null
+      default: null,
+      required: false
     }
   },
   setup ( props ) {
@@ -20,7 +21,7 @@ export const CreateButton = defineComponent ( {
       class: 'text-bold',
       icon: 'pi pi-plus',
       severity: 'primary',
-      onClick: () => router.visit ( route ( props.prefix + '.create', props,query_parameters ) )
+      onClick: () => router.visit ( route ( props.prefix + '.create' ) )
     } );
   }
 } );
