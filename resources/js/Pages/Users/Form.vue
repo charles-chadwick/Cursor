@@ -60,11 +60,11 @@ const cancel = () => {
             roles=""
         >
 
-          <div class="flex flex-row justify-start gap-4">
-            <div class="w-2/3">
+          <div class="flex md:flex-row flex-col justify-start gap-4">
+            <div class="md:w-2/3">
               <!-- First Name and Last Name -->
-              <div class="grid grid-cols-2 gap-4">
-                <div class="flex flex-col gap-2 mb-4">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-2">
                   <label
                       for="first_name"
                       class="font-semibold"
@@ -106,8 +106,8 @@ const cancel = () => {
               </div>
 
               <!-- Email and Role -->
-              <div class="grid grid-cols-2 gap-4">
-                <div class="flex flex-col gap-2">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-2 mt-4">
                   <label
                       for="email"
                       class="font-semibold"
@@ -128,7 +128,7 @@ const cancel = () => {
                   </Message>
                 </div>
 
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2 md:mt-4">
                   <label
                       for="role"
                       class="font-semibold"
@@ -152,8 +152,8 @@ const cancel = () => {
               </div>
 
               <!-- Password and Password Confirmation -->
-              <div class="grid grid-cols-2 gap-4 mt-4">
-                <div class="flex flex-col gap-2">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-2 mt-4">
                   <label
                       for="password"
                       class="font-semibold"
@@ -183,7 +183,7 @@ const cancel = () => {
                   > (leave blank to keep current)</p>
                 </div>
 
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2 mt-4">
                   <label
                       for="password_confirmation"
                       class="font-semibold"
@@ -209,7 +209,7 @@ const cancel = () => {
               </div>
             </div>
 
-            <div class="w-1/3 pl-4">
+            <div class="md:w-1/3 pl-4">
               <label
                   for="avatar"
                   class="font-semibold"
