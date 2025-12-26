@@ -29,15 +29,15 @@ const flash = computed ( () => page.props.flash );
         for="sidebar-toggle"
         class="fixed top-4 left-4 z-50 md:hidden cursor-pointer bg-primary-600 p-3 rounded-md"
     >
-      <div class="w-6 h-0.5 bg-white mb-1.5"></div>
-      <div class="w-6 h-0.5 bg-white mb-1.5"></div>
-      <div class="w-6 h-0.5 bg-white"></div>
+      <div class="w-4 h-0.5 bg-white mb-1.5"></div>
+      <div class="w-4 h-0.5 bg-white mb-1.5"></div>
+      <div class="w-4 h-0.5 bg-white"></div>
     </label>
 
     <!-- Backdrop overlay for mobile -->
     <label
         for="sidebar-toggle"
-        class="fixed inset-0 bg-darker-200/50 hidden peer-checked:block md:peer-checked:hidden"
+        class="fixed inset-0 bg-darker-400/50 hidden peer-checked:block md:peer-checked:hidden"
     ></label>
 
     <!-- Sidebar -->
