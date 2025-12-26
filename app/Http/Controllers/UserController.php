@@ -45,10 +45,10 @@ class UserController extends Controller
         $validated = $request->validated();
         $validated['password'] = Hash::make($validated['password']);
 
-        User::create($validated);
+        $user = User::create($validated);
 
         return redirect()
-            ->route('users.index')
+            ->route('users.edit', $user->id)
             ->with('message', 'User created successfully.')
             ->with('type', 'success');
     }

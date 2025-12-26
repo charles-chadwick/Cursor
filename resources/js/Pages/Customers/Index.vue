@@ -26,7 +26,7 @@ const props = defineProps ( { customers: Object } );
         />
       </div>
 
-      <table class="min-w-full border-collapse">
+      <table class="min-w-full border-collapse table-auto">
         <thead>
         <tr class="table-header">
           <th>Name</th>

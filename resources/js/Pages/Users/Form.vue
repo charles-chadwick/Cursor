@@ -1,3 +1,4 @@
+<!--suppress JSUnresolvedReference -->
 <script setup>
 import { computed } from 'vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
@@ -16,28 +17,22 @@ const props = defineProps ( {
   },
 } );
 
-const user = props.user;
-
-const is_edit = computed ( () => !! user );
+const is_edit = computed ( () => !! props.user );
 
 const form = useForm ( {
-  first_name: user?.first_name || '',
-  last_name: user?.last_name || '',
-  email: user?.email || '',
-  role: user?.role || '',
+  first_name: props.user?.first_name || '',
+  last_name: props.user?.last_name || '',
+  email: props.user?.email || '',
+  role: props.user?.role || '',
   password: '',
   password_confirmation: '',
 } );
 
 const submit = () => {
   if ( is_edit.value ) {
-    form.put ( route ( 'users.update', user.id ), {
-      preserveScroll: true,
-    } );
+    form.put ( route ( 'users.update', props.user.id ));
   } else {
-    form.post ( route ( 'users.store' ), {
-      preserveScroll: true,
-    } );
+    form.post ( route ( 'users.store' ));
   }
 };
 
@@ -50,10 +45,19 @@ const cancel = () => {
   <Head title="Users" />
   <AppLayout>
     <div class="px-8 py-4">
-      <div class="mb-6">
+      <div class="mb-6 flex justify-between items-center">
         <h1 class="text-3xl font-bold text-darker-900">
           {{ is_edit ? 'Edit User' : 'Create User' }}
         </h1>
+        <Button
+            type="button"
+            label="Back to Users"
+            severity="secondary"
+            outlined
+            icon="pi pi-left-arrow"
+            @click="cancel"
+            :disabled="form.processing"
+        />
       </div>
 
       <div class="bg-white rounded-lg shadow p-6">
@@ -62,7 +66,7 @@ const cancel = () => {
             class="space-y-6"
          roles="">
 
-          <div class="flex flex-row justify-between gap-4">
+          <div class="flex flex-row justify-start gap-4">
             <div class="w-2/3">
               <!-- First Name and Last Name -->
               <div class="grid grid-cols-2 gap-4">
@@ -211,7 +215,7 @@ const cancel = () => {
               </div>
             </div>
 
-            <div class="max-w-1/3">
+            <div class="w-1/3 pl-4">
               <label
                   for="avatar"
                   class="font-semibold"
@@ -221,9 +225,10 @@ const cancel = () => {
                   image_type="avatars"
                   on_type="User"
                   size="lg"
-                  :on_id="user.id"
-                  :image="user.avatar"
+                  :on_id="props.user.id"
+                  :image="props.user.avatar"
               />
+              <p v-else>You will be able to add an avatar once the user is created.</p>
             </div>
 
       </div>

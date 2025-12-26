@@ -28,13 +28,9 @@ const form = useForm ( {
 } );
 const submit = () => {
   if ( is_edit.value ) {
-    form.put ( route ( 'companies.update', props.company.id ), {
-      preserveScroll: true,
-    } );
+    form.put ( route ( 'companies.update', props.company.id ));
   } else {
-    form.post ( route ( 'companies.store' ), {
-      preserveScroll: true,
-    } );
+    form.post ( route ( 'companies.store' ));
   }
 };
 
@@ -133,7 +129,7 @@ const cancel = () => {
 
             </div>
 
-            <div class="max-w-1/3 gap-2">
+            <div class="w-1/3 gap-2">
               <label
                   for="notes"
                   class="font-semibold"
@@ -146,6 +142,8 @@ const cancel = () => {
                   :on_id="props.company.id"
                   :image="props.company.logo"
               />
+              <p v-else>You will be able to add a logo once the user is created.</p>
+
             </div>
           </div>
 

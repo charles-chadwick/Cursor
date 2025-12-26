@@ -50,10 +50,10 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         $validated = $request->validated();
-        Company::create($validated);
+        $company = Company::create($validated);
 
         return redirect()
-            ->route('companies.index')
+            ->route('companies.edit', $company->id)
             ->with('message', 'Company created successfully.')
             ->with('type', 'success');
     }

@@ -47,10 +47,10 @@ class CustomerController extends Controller
         $validated['created_by_id'] = auth()->id();
         $validated['updated_by_id'] = auth()->id();
 
-        Customer::create($validated);
+        $customer = Customer::create($validated);
 
         return redirect()
-            ->route('customers.index')
+            ->route('customers.edit' , $customer->id)
             ->with('message', 'Customer created successfully.')
             ->with('type', 'success');
     }

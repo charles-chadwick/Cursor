@@ -81,7 +81,7 @@ const handleCloseDialog = () => {
 
 <template>
   <div>
-    <div v-if="image">
+    <div v-if="image" class="flex flex-col items-center justify-center">
       <img
           @click="handleShowDialog"
           :alt="alt_text"
