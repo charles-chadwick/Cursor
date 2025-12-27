@@ -92,13 +92,6 @@ const toggle = ( event ) => {
           </div>
         </div>
 
-        <!-- Contacts Component -->
-        <Contacts
-            :contacts="company.contacts"
-            :on_id="company.id"
-            on_type="Company"
-        />
-
         <!-- Menu Component -->
       <div>
         <Button
@@ -116,6 +109,15 @@ const toggle = ( event ) => {
         />
       </div>
     </Card>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <Card class="mt-4">
+      <Contacts
+          :contacts="company.contacts"
+          :on_id="company.id"
+          on_type="Company"
+      />
+    </Card>
+     </div>
 
   </AppLayout>
 </template>

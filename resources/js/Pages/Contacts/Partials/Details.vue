@@ -145,7 +145,7 @@ onMounted ( () => {
 
 <template>
   <ConfirmDialog />
-  <div class="w-80">
+
 
     <div
         class="flex flex-col gap-4"
@@ -411,6 +411,6 @@ onMounted ( () => {
         </div>
       </form>
     </Dialog>
-  </div>
+
 
 </template>
