@@ -29,8 +29,6 @@ const props = defineProps ( { companies: Object } );
         <tr class="table-header">
           <th>Type</th>
           <th>Name</th>
-          <th>Created By</th>
-          <th>Created At</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -44,10 +42,6 @@ const props = defineProps ( { companies: Object } );
           <td class="table-cell click">
             <CompanyDetails :company="company" />
           </td>
-          <td class="table-cell  click">
-            <UserDetails :user="company.created_by" />
-          </td>
-          <td class="table-cell">{{ company.created_at }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
               <EditButton

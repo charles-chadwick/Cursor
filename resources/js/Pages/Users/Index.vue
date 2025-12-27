@@ -32,8 +32,6 @@ const props = defineProps ( {
         <tr class="table-header">
           <th>Role</th>
           <th>Name</th>
-          <th>Created By</th>
-          <th>Created At</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -45,10 +43,6 @@ const props = defineProps ( {
         >
           <td class="table-cell">{{ user.role }}</td>
           <td class="table-cell">{{ user.full_name }}</td>
-          <td class="table-cell  click">
-            <UserDetails :user="user.created_by" />
-          </td>
-          <td class="table-cell">{{ user.created_at }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
               <EditButton

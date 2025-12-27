@@ -32,8 +32,6 @@ const props = defineProps ( { customers: Object } );
           <th>Name</th>
           <th>Job Title</th>
           <th>Company</th>
-          <th>Created By</th>
-          <th>Created At</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -54,10 +52,6 @@ const props = defineProps ( { customers: Object } );
             />
           </td>
 
-          <td class="table-cell click">
-            <UserDetails :user="customer.created_by" />
-          </td>
-          <td class="table-cell">{{ customer.created_at }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
               <EditButton
