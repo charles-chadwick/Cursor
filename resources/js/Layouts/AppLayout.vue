@@ -1,9 +1,11 @@
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import Message from 'primevue/message';
 
 const page = usePage ();
+
+const management_menu_open = ref ( false );
 
 // Layout component
 const main_nav = [
@@ -48,7 +50,7 @@ const flash = computed ( () => page.props.flash );
         </h1>
       </div>
       <nav class="flex-1 p-4 space-y-2">
-        <a
+        <Link
             v-for="nav_item in main_nav"
             :key="nav_item.name"
             :href="nav_item.href"
@@ -56,16 +58,34 @@ const flash = computed ( () => page.props.flash );
         >
           <i :class="nav_item.icon"></i>
           {{ nav_item.name }}
-        </a>
-        <a
-            v-if="is_admin"
-            :href="route('users.index')"
-            class="px-4 py-2 text-white font-bold hover:bg-primary-500 hover:rounded-md flex items-center gap-2"
-        >
-          <i class="pi pi-user-edit"></i>
-          Users
-        </a>
+        </Link>
       </nav>
+
+      <div class="border-t border-t-primary-500 p-4">
+        <button
+            @click="management_menu_open = !management_menu_open"
+            class="w-full px-4 py-2 text-white font-bold hover:bg-primary-500 hover:rounded-md flex items-center justify-between"
+        >
+          <div class="flex items-center gap-2">
+            <i class="pi pi-cog"></i>
+            Settings
+          </div>
+          <i :class="management_menu_open ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"></i>
+        </button>
+
+        <div
+            v-if="management_menu_open"
+            class="mt-2 space-y-1 pl-4"
+        >
+          <Link
+              :href="route('users.index')"
+              class="block px-4 py-2 text-white hover:bg-primary-500 hover:rounded-md items-center gap-2"
+          >
+            <i class="pi pi-users"></i>
+            Users
+          </Link>
+        </div>
+      </div>
     </aside>
 
     <!-- Main Content -->
